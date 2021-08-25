@@ -64,6 +64,9 @@ func (u *MyUuid) Scan(src interface{}) error {
 		uid, _ := uuid.FromString(src)
 		*u = MyUuid(uid)
 		return uid.UnmarshalText([]byte(src))
+	default:
+		fmt.Println("Undefined source type")
+		return nil
 	}
 
 	return fmt.Errorf("uuid: cannot convert %T to UUID", src)
