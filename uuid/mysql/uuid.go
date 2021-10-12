@@ -4,6 +4,7 @@ import (
 	"database/sql/driver"
 	"fmt"
 	uuid "github.com/satori/go.uuid"
+	"log"
 	"strings"
 )
 
@@ -80,12 +81,9 @@ func (u MyUuid) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON variable of uuid type from string json conversion
 func (u *MyUuid) UnmarshalJSON(b []byte) error {
-	if nil == b || string(b) == "" {
-		return nil
-	}
 	uid, err := uuid.FromString(strings.Trim(string(b), "\""))
 	if err != nil {
-		return err
+		log.Println(err)
 	}
 	*u = MyUuid(uid)
 
